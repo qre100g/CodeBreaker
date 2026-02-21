@@ -8,7 +8,27 @@
 import Foundation
 import SwiftUI
 
-typealias Peg = Color
+enum Peg: Equatable {
+    case circle(Color)
+    case emoji(String)
+    
+    static let clear: Peg = .circle(.clear)
+    static let red: Peg = .circle(.red)
+    static let green: Peg = .circle(.green)
+    static let blue: Peg = .circle(.blue)
+    static let yellow: Peg = .circle(.yellow)
+    
+    
+    var color: Color {
+        switch self {
+        case .circle(let color):
+            return color
+        default:
+            return .clear
+        }
+    }
+
+}
 
 struct CodeBreaker {
     var master: Code
@@ -57,7 +77,7 @@ struct Code {
         self.pegs = Array(repeating: .clear, count: pegCount)
     }
     
-    static let missing = Color.clear
+    static let missing = Peg.clear
     
     enum Kind: Equatable {
         case master
