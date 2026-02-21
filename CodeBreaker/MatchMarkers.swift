@@ -25,7 +25,8 @@ struct MatchMarkers: View {
             VStack {
                 matchMarker(peg: 2)
                 matchMarker(peg: 3)
-            }        }
+            }
+        }
     }
     
     func matchMarker(peg: Int) -> some View {
@@ -39,5 +40,5 @@ struct MatchMarkers: View {
 }
 
 #Preview {
-    MatchMarkers(matches: [.exact, .exact, .nomatch, .inexact])
+    MatchMarkers(matches: [.inexact, .inexact, .inexact, .inexact])
 }
