@@ -26,6 +26,10 @@ struct MatchMarkers: View {
                 matchMarker(peg: 2)
                 matchMarker(peg: 3)
             }
+            VStack {
+                matchMarker(peg: 4)
+                matchMarker(peg: 5)
+            }
         }
     }
     
