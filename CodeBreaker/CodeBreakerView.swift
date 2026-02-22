@@ -21,7 +21,7 @@ struct CodeBreakerView: View {
             }
             
             Button("Restart game") {
-                game = CodeBreaker(pegCount: (3...6).randomElement() ?? 4)
+                game = CodeBreaker(pegCount: Int.random(in: 3...6))
             }
         }
         .padding()
