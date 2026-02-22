@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CodeBreakerView: View {
-    @State var game = CodeBreaker(pegChoices: ["🥰", "🥳", "😂", "😎", "😍"], pegCount: 5)
+    @State var game = CodeBreaker(pegCount: 5)
     
     var body: some View {
         VStack {
@@ -21,7 +21,11 @@ struct CodeBreakerView: View {
             }
             
             Button("Restart game") {
-                game = CodeBreaker(pegCount: Int.random(in: 3...6))
+                let emojies = ["🥰", "🥳", "😂", "😎", "😍"]
+                let pegCount = Int.random(in: 3...6)
+                let shouldPlayWithEmojies = Bool.random()
+                let model = shouldPlayWithEmojies ? CodeBreaker(pegChoices: emojies, pegCount: pegCount) : CodeBreaker(pegCount: pegCount)
+                game = model
             }
         }
         .padding()
