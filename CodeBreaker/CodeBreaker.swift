@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-typealias Peg = Color
+typealias Peg = String
 
 struct CodeBreaker {
     var master: Code
@@ -16,7 +16,7 @@ struct CodeBreaker {
     var attempts: [Code] = []
     let pegChoices: [Peg]
     
-    init(pegChoices: [Peg] = [.red, .green, .blue, .yellow], pegCount: Int = 4) {
+    init(pegChoices: [Peg] = ["red", "green", "blue", "yellow"], pegCount: Int = 4) {
         self.pegChoices = pegChoices
         self.master = Code(kind: .master, pegCount: pegCount)
         self.guess  = Code(kind: .guess, pegCount: pegCount)
@@ -54,10 +54,10 @@ struct Code {
     
     init(kind: Kind, pegCount: Int) {
         self.kind = kind
-        self.pegs = Array(repeating: .clear, count: pegCount)
+        self.pegs = Array(repeating: "clear", count: pegCount)
     }
     
-    static let missing = Peg.clear
+    static let missing = "clear"
     
     enum Kind: Equatable {
         case master
