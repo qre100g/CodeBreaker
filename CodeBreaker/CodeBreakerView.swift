@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CodeBreakerView: View {
-    @State var game = CodeBreaker(pegCount: 5)
+    @State var game = CodeBreaker(pegChoices: ["🥰", "🥳", "😂", "😎", "😍"], pegCount: 5)
     
     var body: some View {
         VStack {
@@ -49,7 +49,8 @@ struct CodeBreakerView: View {
                     }
                     .contentShape(Rectangle())
                     .aspectRatio(1, contentMode: .fit)
-                    .foregroundStyle(code.pegs[index].toColor)
+                    .foregroundStyle(code.pegs[index].toColor ?? Color.clear)
+                    .overlay { showTextView(for: code.pegs[index]) }
                     .onTapGesture {
                         if code.kind == .guess {
                             game.changeGuessPeg(at: index)
@@ -66,10 +67,19 @@ struct CodeBreakerView: View {
                 }
         }
     }
+    
+    @ViewBuilder
+    func showTextView(for peg: Peg) -> some View {
+        if peg.toColor == nil {
+            Text(peg)
+                .font(.system(size: 120))
+                .minimumScaleFactor(9/120)
+        }
+    }
 }
 
 extension String {
-    var toColor: Color {
+    var toColor: Color? {
         switch self {
         case "red": .red
         case "green": .green
@@ -77,7 +87,7 @@ extension String {
         case "yellow": .yellow
         case "clear": .clear
 
-        default: .clear
+        default: nil
         }
     }
 }
