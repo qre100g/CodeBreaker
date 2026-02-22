@@ -49,7 +49,7 @@ struct CodeBreakerView: View {
                     }
                     .contentShape(Rectangle())
                     .aspectRatio(1, contentMode: .fit)
-                    .foregroundStyle(code.pegs[index].color)
+                    .foregroundStyle(code.pegs[index])
                     .onTapGesture {
                         if code.kind == .guess {
                             game.changeGuessPeg(at: index)
