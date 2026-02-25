@@ -11,7 +11,7 @@ struct PegView: View {
     let peg: Peg
 
     var body: some View {
-        RoundedRectangle(cornerRadius: 10)
+        Circle()
             .overlay {
                 if peg == Code.missing {
                     RoundedRectangle(cornerRadius: 10)
