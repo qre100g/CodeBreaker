@@ -38,6 +38,10 @@ struct Code {
         }
     }
     
+    mutating func reset() {
+        pegs = Array(repeating: "clear", count: pegs.count)
+    }
+    
     func match(against otherCode: Code) -> [Match] {
         var result = Array(repeating: Match.nomatch, count: pegs.count)
         var pegsToMatch = otherCode.pegs

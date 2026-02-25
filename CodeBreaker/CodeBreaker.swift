@@ -40,6 +40,8 @@ struct CodeBreaker {
         var attempt = guess
         attempt.kind = .attempt(attempt.match(against: master))
         attempts.append(attempt)
+        
+        guess.reset()
     }
 }
 
