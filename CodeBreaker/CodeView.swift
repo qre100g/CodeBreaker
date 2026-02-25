@@ -32,15 +32,14 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
             ForEach(code.pegs.indices, id: \.self) { index in
                 PegView(peg: code.pegs[index])
                     .overlay {
-                        if selection == index {
+                        if selection == index || code.kind == .master {
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundStyle(Color.gray.opacity(0.3))
+                                .foregroundStyle(Color.gray.opacity(code.kind == .master ? 1 : 0.3))
                         }
                     }
                     .onTapGesture {
                         selection = index
                     }
-                    .opacity(code.kind == .master ? 0 : 1)
             }
             
             MatchMarkers(matches: code.matches)
