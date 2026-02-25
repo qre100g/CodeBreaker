@@ -18,9 +18,7 @@ struct CodeBreakerView: View {
             ScrollView {
                 CodeView(code: game.guess) { index in
                     game.changeGuessPeg(at: index)
-                } accessoryView: {
-                    guessButton
-                }
+                } accessoryView: { guessButton }
                 ForEach(game.attempts.indices.reversed(), id: \.self) { index in
                     CodeView(
                         code: game.attempts[index],
@@ -30,13 +28,7 @@ struct CodeBreakerView: View {
                 }
             }
             
-            Button("Restart game") {
-                let emojies = ["🥰", "🥳", "😂", "😎", "😍"]
-                let pegCount = Int.random(in: 3...6)
-                let shouldPlayWithEmojies = Bool.random()
-                let model = shouldPlayWithEmojies ? CodeBreaker(pegChoices: emojies, pegCount: pegCount) : CodeBreaker(pegCount: pegCount)
-                game = model
-            }
+            Button("Restart game") { restartGame() }
         }
         .padding()
     }
@@ -49,6 +41,14 @@ struct CodeBreakerView: View {
         }
         .font(.system(size: 80))
         .minimumScaleFactor(0.1)
+    }
+    
+    func restartGame() {
+        let emojies = ["🥰", "🥳", "😂", "😎", "😍"]
+        let pegCount = Int.random(in: 3...6)
+        let shouldPlayWithEmojies = Bool.random()
+        let model = shouldPlayWithEmojies ? CodeBreaker(pegChoices: emojies, pegCount: pegCount) : CodeBreaker(pegCount: pegCount)
+        game = model
     }
 }
 
