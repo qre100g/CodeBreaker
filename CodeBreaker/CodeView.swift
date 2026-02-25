@@ -30,17 +30,7 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
     var body: some View {
         HStack {
             ForEach(code.pegs.indices, id: \.self) { index in
-                RoundedRectangle(cornerRadius: 10)
-                    .overlay {
-                        if code.pegs[index] == Code.missing {
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(Color.gray)
-                        }
-                    }
-                    .contentShape(Rectangle())
-                    .aspectRatio(1, contentMode: .fit)
-                    .foregroundStyle(code.pegs[index].toColor ?? Color.clear)
-                    .overlay { showTextView(for: code.pegs[index]) }
+                PegView(peg: code.pegs[index])
                     .onTapGesture {
                         onTap?(index)
                     }
@@ -54,15 +44,8 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
         }
     }
     
-    @ViewBuilder
-    func showTextView(for peg: Peg) -> some View {
-        if peg.toColor == nil {
-            Text(peg)
-                .font(.system(size: 120))
-                .minimumScaleFactor(9/120)
-        }
-    }
 }
+
 
 extension String {
     var toColor: Color? {
