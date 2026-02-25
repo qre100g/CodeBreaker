@@ -7,13 +7,25 @@
 
 import SwiftUI
 
-struct CodeView: View {
+struct CodeView<AccessoryView>: View where AccessoryView: View {
     
     // MARK: Data shared
     @Binding var game: CodeBreaker
     
     // MARK: Data In
     let code: Code
+    
+    let accessoryView: AccessoryView
+    
+    init(
+        game: Binding<CodeBreaker>,
+        code: Code,
+        @ViewBuilder accessoryView: @escaping () -> AccessoryView = { EmptyView() }
+    ) {
+        self._game = game
+        self.code = code
+        self.accessoryView = accessoryView()
+    }
 
     // MARK: - Body
     var body: some View {
@@ -40,21 +52,9 @@ struct CodeView: View {
             
             MatchMarkers(matches: code.matches)
                 .overlay {
-                    if code.kind == .guess {
-                        guessButton
-                    }
+                    accessoryView
                 }
         }
-    }
-    
-    var guessButton: some View {
-        Button("Guess") {
-            withAnimation {
-                game.attemptGuess()
-            }
-        }
-        .font(.system(size: 80))
-        .minimumScaleFactor(0.1)
     }
     
     @ViewBuilder

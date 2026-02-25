@@ -16,9 +16,16 @@ struct CodeBreakerView: View {
         VStack {
             CodeView(game: $game, code: game.master)
             ScrollView {
-                CodeView(game: $game, code: game.guess)
+                CodeView(game: $game, code: game.guess) {
+                    guessButton
+                }
                 ForEach(game.attempts.indices.reversed(), id: \.self) { index in
-                    CodeView(game: $game, code: game.attempts[index])
+                    CodeView(
+                        game: $game,
+                        code: game.attempts[index]
+                    ) {
+                        MatchMarkers(matches: game.attempts[index].match(against: game.master))
+                    }
                 }
             }
             
@@ -31,6 +38,16 @@ struct CodeBreakerView: View {
             }
         }
         .padding()
+    }
+    
+    var guessButton: some View {
+        Button("Guess") {
+            withAnimation {
+                game.attemptGuess()
+            }
+        }
+        .font(.system(size: 80))
+        .minimumScaleFactor(0.1)
     }
 }
 
