@@ -9,21 +9,20 @@ import SwiftUI
 
 struct CodeView<AccessoryView>: View where AccessoryView: View {
     
-    // MARK: Data shared
-    @Binding var game: CodeBreaker
-    
     // MARK: Data In
     let code: Code
+    
+    let onTap: ((Int) -> Void)?
     
     let accessoryView: AccessoryView
     
     init(
-        game: Binding<CodeBreaker>,
         code: Code,
+        onTap: ((Int) -> Void)? = nil,
         @ViewBuilder accessoryView: @escaping () -> AccessoryView = { EmptyView() }
     ) {
-        self._game = game
         self.code = code
+        self.onTap = onTap
         self.accessoryView = accessoryView()
     }
 
@@ -43,9 +42,7 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
                     .foregroundStyle(code.pegs[index].toColor ?? Color.clear)
                     .overlay { showTextView(for: code.pegs[index]) }
                     .onTapGesture {
-                        if code.kind == .guess {
-                            game.changeGuessPeg(at: index)
-                        }
+                        onTap?(index)
                     }
                     .opacity(code.kind == .master ? 0 : 1)
             }

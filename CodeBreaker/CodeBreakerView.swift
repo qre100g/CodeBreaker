@@ -14,18 +14,19 @@ struct CodeBreakerView: View {
     // MARK: - Body
     var body: some View {
         VStack {
-            CodeView(game: $game, code: game.master)
+            CodeView(code: game.master)
             ScrollView {
-                CodeView(game: $game, code: game.guess) {
+                CodeView(code: game.guess) { index in
+                    game.changeGuessPeg(at: index)
+                } accessoryView: {
                     guessButton
                 }
                 ForEach(game.attempts.indices.reversed(), id: \.self) { index in
                     CodeView(
-                        game: $game,
-                        code: game.attempts[index]
-                    ) {
-                        MatchMarkers(matches: game.attempts[index].match(against: game.master))
-                    }
+                        code: game.attempts[index],
+                        accessoryView: {
+                            MatchMarkers(matches: game.attempts[index].match(against: game.master))
+                        })
                 }
             }
             
