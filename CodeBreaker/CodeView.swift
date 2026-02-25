@@ -34,7 +34,7 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
                     .overlay {
                         if selection == index || code.kind == .master {
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundStyle(Color.gray.opacity(code.kind == .master ? 1 : 0.3))
+                                .foregroundStyle(Color.gray.opacity(code.kind == .master ? 1 : 0.5))
                         }
                     }
                     .onTapGesture {
