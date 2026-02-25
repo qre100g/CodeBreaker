@@ -12,17 +12,17 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
     // MARK: Data In
     let code: Code
     
-    let onTap: ((Int) -> Void)?
+    @Binding var selection: Int
     
     let accessoryView: AccessoryView
     
     init(
         code: Code,
-        onTap: ((Int) -> Void)? = nil,
+        selection: Binding<Int> = .constant(-1),
         @ViewBuilder accessoryView: @escaping () -> AccessoryView = { EmptyView() }
     ) {
         self.code = code
-        self.onTap = onTap
+        self._selection = selection
         self.accessoryView = accessoryView()
     }
 
@@ -31,8 +31,14 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
         HStack {
             ForEach(code.pegs.indices, id: \.self) { index in
                 PegView(peg: code.pegs[index])
+                    .overlay {
+                        if selection == index {
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundStyle(Color.gray.opacity(0.3))
+                        }
+                    }
                     .onTapGesture {
-                        onTap?(index)
+                        selection = index
                     }
                     .opacity(code.kind == .master ? 0 : 1)
             }

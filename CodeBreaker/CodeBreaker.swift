@@ -23,13 +23,9 @@ struct CodeBreaker {
         print("masterCode = \(master.pegs)")
     }
     
-    mutating func changeGuessPeg(at index: Int) {
-        let existingPeg = guess.pegs[index]
-        if let indexOfExistingPegInPegChoices = pegChoices.firstIndex(of: existingPeg) {
-            let newPeg = pegChoices[(indexOfExistingPegInPegChoices + 1) % pegChoices.count]
-            guess.pegs[index] = newPeg
-        } else {
-            guess.pegs[index] = pegChoices.first ?? Code.missing
+    mutating func changeGuessPeg(_ peg: Peg, at index: Int) {
+        if index >= 0 && index < guess.pegs.count {
+            guess.pegs[index] = peg
         }
     }
     

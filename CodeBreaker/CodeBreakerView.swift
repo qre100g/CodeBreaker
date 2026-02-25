@@ -11,20 +11,30 @@ struct CodeBreakerView: View {
     // MARK: Data Own
     @State var game = CodeBreaker(pegCount: 5)
     
+    @State var selection: Int = 0
+    
     // MARK: - Body
     var body: some View {
         VStack {
             CodeView(code: game.master)
             ScrollView {
-                CodeView(code: game.guess) { index in
-                    game.changeGuessPeg(at: index)
-                } accessoryView: { guessButton }
+                CodeView(code: game.guess, selection: $selection) { guessButton }
+
                 ForEach(game.attempts.indices.reversed(), id: \.self) { index in
                     CodeView(
-                        code: game.attempts[index],
-                        accessoryView: {
+                        code: game.attempts[index]) {
                             MatchMarkers(matches: game.attempts[index].match(against: game.master))
-                        })
+                        }
+                }
+            }
+            
+            HStack {
+                ForEach(game.pegChoices.indices, id: \.self) { index in
+                    PegView(peg: game.pegChoices[index])
+                        .onTapGesture {
+                            game.changeGuessPeg(game.pegChoices[index], at: selection)
+                            selection = (selection + 1) % game.master.pegs.count
+                        }
                 }
             }
             
