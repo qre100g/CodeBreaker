@@ -12,13 +12,8 @@ struct PegView: View {
 
     var body: some View {
         Circle()
-            .overlay {
-                if peg == Code.missing {
-                    RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(Color.gray)
-                }
-            }
             .contentShape(Rectangle())
+            .padding(5)
             .aspectRatio(1, contentMode: .fit)
             .foregroundStyle(peg.toColor ?? Color.clear)
             .overlay { showTextView(for: peg) }
