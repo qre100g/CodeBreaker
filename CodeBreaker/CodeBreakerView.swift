@@ -16,6 +16,8 @@ struct CodeBreakerView: View {
     // MARK: - Body
     var body: some View {
         VStack {
+            Button("Restart game") { restartGame() }
+
             CodeView(code: game.master)
             ScrollView {
                 CodeView(code: game.guess, selection: $selection) { guessButton }
@@ -37,8 +39,6 @@ struct CodeBreakerView: View {
                         }
                 }
             }
-            
-            Button("Restart game") { restartGame() }
         }
         .padding()
     }
