@@ -20,7 +20,10 @@ struct CodeBreakerView: View {
 
             CodeView(code: game.master)
             ScrollView {
-                CodeView(code: game.guess, selection: $selection) { guessButton }
+                
+                if !game.isOver {
+                    CodeView(code: game.guess, selection: $selection) { guessButton }
+                }
 
                 ForEach(game.attempts.indices.reversed(), id: \.self) { index in
                     CodeView(

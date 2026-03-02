@@ -32,9 +32,15 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
             ForEach(code.pegs.indices, id: \.self) { index in
                 PegView(peg: code.pegs[index])
                     .overlay {
-                        if selection == index || code.kind == .master {
+                        if case let .master(isHidden) = code.kind, isHidden {
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundStyle(Color.gray.opacity(code.kind == .master ? 1 : 0.5))
+                                .foregroundStyle(Color.gray.opacity(isHidden ? 1 : 0.5))
+                        }
+                    }
+                    .overlay {
+                        if selection == index {
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundStyle(Color.gray.opacity(0.5))
                         }
                     }
                     .onTapGesture {

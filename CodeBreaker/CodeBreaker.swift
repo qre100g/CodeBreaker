@@ -15,9 +15,11 @@ struct CodeBreaker {
     var attempts: [Code] = []
     let pegChoices: [Peg]
     
+    var isOver: Bool = false
+    
     init(pegChoices: [Peg] = ["red", "green", "blue", "yellow"], pegCount: Int = 4) {
         self.pegChoices = pegChoices
-        self.master = Code(kind: .master, pegCount: pegCount)
+        self.master = Code(kind: .master(isHidden: true), pegCount: pegCount)
         self.guess  = Code(kind: .guess, pegCount: pegCount)
         master.randomize(from: pegChoices)
         print("masterCode = \(master.pegs)")
@@ -40,6 +42,11 @@ struct CodeBreaker {
         var attempt = guess
         attempt.kind = .attempt(attempt.match(against: master))
         attempts.append(attempt)
+        
+        if guess.pegs == master.pegs {
+            isOver = true
+            master.kind = .master(isHidden: false)
+        }
         
         guess.reset()
     }

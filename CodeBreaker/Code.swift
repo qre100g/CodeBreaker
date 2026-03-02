@@ -20,7 +20,7 @@ struct Code {
     static let missing = "clear"
     
     enum Kind: Equatable {
-        case master
+        case master(isHidden: Bool)
         case guess
         case attempt([Match])
     }
