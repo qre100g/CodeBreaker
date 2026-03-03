@@ -25,24 +25,11 @@ struct CodeBreakerView: View {
                     CodeView(code: game.guess, selection: $selection) { guessButton }
                 }
 
-                ForEach(game.attempts.indices.reversed(), id: \.self) { index in
-                    CodeView(
-                        code: game.attempts[index]) {
-                            MatchMarkers(matches: game.attempts[index].match(against: game.master))
-                        }
-                }
+                guessAttemptsView
             }
             
             if !game.isOver {
-                HStack {
-                    ForEach(game.pegChoices.indices, id: \.self) { index in
-                        PegView(peg: game.pegChoices[index])
-                            .onTapGesture {
-                                game.changeGuessPeg(game.pegChoices[index], at: selection)
-                                selection = (selection + 1) % game.master.pegs.count
-                            }
-                    }
-                }
+                pegChooserView
             }
         }
         .padding()
@@ -57,6 +44,27 @@ struct CodeBreakerView: View {
         }
         .font(.system(size: 80))
         .minimumScaleFactor(0.1)
+    }
+    
+    var pegChooserView: some View {
+        HStack {
+            ForEach(game.pegChoices.indices, id: \.self) { index in
+                PegView(peg: game.pegChoices[index])
+                    .onTapGesture {
+                        game.changeGuessPeg(game.pegChoices[index], at: selection)
+                        selection = (selection + 1) % game.master.pegs.count
+                    }
+            }
+        }
+    }
+    
+    var guessAttemptsView: some View {
+        ForEach(game.attempts.indices.reversed(), id: \.self) { index in
+            CodeView(
+                code: game.attempts[index]) {
+                    MatchMarkers(matches: game.attempts[index].match(against: game.master))
+                }
+        }
     }
     
     func restartGame() {
