@@ -11,10 +11,11 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
     
     // MARK: Data In
     let code: Code
-    
+    let accessoryView: AccessoryView
+
+    // MARK: Data shared with me
     @Binding var selection: Int
     
-    let accessoryView: AccessoryView
     
     init(
         code: Code,
