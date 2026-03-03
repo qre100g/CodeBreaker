@@ -33,13 +33,15 @@ struct CodeBreakerView: View {
                 }
             }
             
-            HStack {
-                ForEach(game.pegChoices.indices, id: \.self) { index in
-                    PegView(peg: game.pegChoices[index])
-                        .onTapGesture {
-                            game.changeGuessPeg(game.pegChoices[index], at: selection)
-                            selection = (selection + 1) % game.master.pegs.count
-                        }
+            if !game.isOver {
+                HStack {
+                    ForEach(game.pegChoices.indices, id: \.self) { index in
+                        PegView(peg: game.pegChoices[index])
+                            .onTapGesture {
+                                game.changeGuessPeg(game.pegChoices[index], at: selection)
+                                selection = (selection + 1) % game.master.pegs.count
+                            }
+                    }
                 }
             }
         }
