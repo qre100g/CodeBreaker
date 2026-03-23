@@ -15,6 +15,9 @@ struct CodeBreaker {
     var attempts: [Code] = []
     let pegChoices: [Peg]
     
+    let startTime: Date = .now
+    var endTime: Date? = nil
+    
     var isOver: Bool = false
     
     init(pegChoices: [Peg] = ["red", "green", "blue", "yellow"], pegCount: Int = 4) {
@@ -44,6 +47,7 @@ struct CodeBreaker {
         attempts.append(attempt)
         
         if guess.pegs == master.pegs {
+            endTime = .now
             isOver = true
             master.kind = .master(isHidden: false)
         }

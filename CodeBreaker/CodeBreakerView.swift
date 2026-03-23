@@ -18,7 +18,7 @@ struct CodeBreakerView: View {
         VStack {
             Button("Restart game") { restartGame() }
 
-            CodeView(code: game.master)
+            CodeView(code: game.master) { ElapsedTime(startTime: game.startTime, endTime: game.endTime) }
             ScrollView {
                 
                 if !game.isOver {
@@ -73,6 +73,19 @@ struct CodeBreakerView: View {
         let shouldPlayWithEmojies = Bool.random()
         let model = shouldPlayWithEmojies ? CodeBreaker(pegChoices: emojies, pegCount: pegCount) : CodeBreaker(pegCount: pegCount)
         game = model
+    }
+}
+
+struct ElapsedTime: View {
+    let startTime: Date
+    let endTime: Date?
+    
+    var body: some View {
+        if let endTime {
+            Text(endTime, format: .offset(to: startTime, allowedFields: [.minute, .second]))
+        } else {
+            Text(.now, format: .offset(to: startTime, allowedFields: [.minute, .second]))
+        }
     }
 }
 
