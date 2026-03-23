@@ -84,7 +84,7 @@ struct ElapsedTime: View {
         if let endTime {
             Text(endTime, format: .offset(to: startTime, allowedFields: [.minute, .second]))
         } else {
-            Text(.now, format: .offset(to: startTime, allowedFields: [.minute, .second]))
+            Text(TimeDataSource<Date>.currentDate, format: .offset(to: startTime, allowedFields: [.minute, .second]))
         }
     }
 }
