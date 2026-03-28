@@ -52,14 +52,9 @@ struct CodeBreakerView: View {
     }
     
     var pegChooserView: some View {
-        HStack {
-            ForEach(game.pegChoices.indices, id: \.self) { index in
-                PegView(peg: game.pegChoices[index])
-                    .onTapGesture {
-                        game.changeGuessPeg(game.pegChoices[index], at: selection)
-                        selection = (selection + 1) % game.master.pegs.count
-                    }
-            }
+        PegChooser(pegChoices: game.pegChoices) { peg in
+            game.changeGuessPeg(peg, at: selection)
+            selection = (selection + 1) % game.master.pegs.count
         }
     }
     
