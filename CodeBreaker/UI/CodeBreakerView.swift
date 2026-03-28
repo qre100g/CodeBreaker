@@ -10,7 +10,6 @@ import SwiftUI
 struct CodeBreakerView: View {
     // MARK: Data Own
     @State var game = CodeBreaker(pegCount: 5)
-    
     @State var selection: Int = 0
     
     // MARK: - Body
