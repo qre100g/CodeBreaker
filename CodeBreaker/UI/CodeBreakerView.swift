@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct CodeBreakerView: View {
+    // MARK: Data passed
+    @Binding var game: CodeBreaker
+
     // MARK: Data Own
-    @State var game = CodeBreaker(pegCount: 5)
     @State var selection: Int = 0
+    
+    init(game: Binding<CodeBreaker>) {
+        self._game = game
+    }
     
     // MARK: - Body
     var body: some View {
@@ -75,6 +81,3 @@ struct CodeBreakerView: View {
     }
 }
 
-#Preview {
-    CodeBreakerView()
-}
