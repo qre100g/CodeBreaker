@@ -21,8 +21,6 @@ struct CodeBreakerView: View {
     // MARK: - Body
     var body: some View {
         VStack {
-            Button("Restart game") { restartGame() }
-
             CodeView(code: game.master) { ElapsedTime(startTime: game.startTime, endTime: game.endTime) }
             ScrollView {
                 
@@ -35,6 +33,13 @@ struct CodeBreakerView: View {
             
             if !game.isOver {
                 pegChooserView
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button("Restart game", systemImage: "arrow.clockwise") {
+                    restartGame()
+                }
             }
         }
         .padding()
