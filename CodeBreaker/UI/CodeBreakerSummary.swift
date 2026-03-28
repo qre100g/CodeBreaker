@@ -30,7 +30,8 @@ struct CodeBreakerSummary: View {
             if games.isEmpty {
                 games = [
                     CodeBreaker(name: "First Game"),
-                    CodeBreaker(name: "Second Game")
+                    CodeBreaker(name: "Second Game"),
+                    CodeBreaker(name: "Third Game")
                 ]
             }
         }
