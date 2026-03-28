@@ -15,13 +15,19 @@ class CodeBreaker {
     var guess: Code
     var attempts: [Code] = []
     let pegChoices: [Peg]
+    let name: String
     
     let startTime: Date = .now
     var endTime: Date? = nil
     
     var isOver: Bool = false
     
-    init(pegChoices: [Peg] = ["red", "green", "blue", "yellow"], pegCount: Int = 4) {
+    init(
+        name: String = "Code Breaker",
+        pegChoices: [Peg] = ["red", "green", "blue", "yellow"],
+        pegCount: Int = 4
+    ) {
+        self.name = name
         self.pegChoices = pegChoices
         self.master = Code(kind: .master(isHidden: true), pegCount: pegCount)
         self.guess  = Code(kind: .guess, pegCount: pegCount)

@@ -16,15 +16,21 @@ struct CodeBreakerSummary: View {
                 ForEach(games.indices, id: \.self) { index in
                     NavigationLink {
                         CodeBreakerView(game: $games[index])
+                            .navigationTitle(games[index].name)
+                            .navigationBarTitleDisplayMode(.inline)
                     } label: {
-                        Text("Game")
+                        Text(games[index].name)
                     }
                 }
             }
+            .navigationTitle("Summary")
         }
         .onAppear {
             if games.isEmpty {
-                games = [CodeBreaker(), CodeBreaker()]
+                games = [
+                    CodeBreaker(name: "First Game"),
+                    CodeBreaker(name: "Second Game")
+                ]
             }
         }
     }
