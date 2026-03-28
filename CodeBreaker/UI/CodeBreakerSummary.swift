@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CodeBreakerSummary: View {
+    // MARK: Data owned by view
     @State var games: [CodeBreaker] = []
 
     var body: some View {
@@ -19,7 +20,7 @@ struct CodeBreakerSummary: View {
                             .navigationTitle(games[index].name)
                             .navigationBarTitleDisplayMode(.inline)
                     } label: {
-                        Text(games[index].name)
+                        GameSummary(game: games[index])
                     }
                 }
             }
