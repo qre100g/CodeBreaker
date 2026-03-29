@@ -14,18 +14,27 @@ struct GameChooser: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(games.indices, id: \.self) { index in
+                ForEach($games, id: \.self) { $game in
                     NavigationLink {
-                        CodeBreakerView(game: $games[index])
-                            .navigationTitle(games[index].name)
+                        CodeBreakerView(game: $game)
+                            .navigationTitle(game.name)
                             .navigationBarTitleDisplayMode(.inline)
                     } label: {
-                        GameSummary(game: games[index])
+                        GameSummary(game: game)
                     }
                 }
+                .onDelete { offsets in
+                    games.remove(atOffsets: offsets)
+                }
+                .onMove { offsets, offset in
+                    games.move(fromOffsets: offsets, toOffset: offset)
+                }
             }
-            .navigationTitle("Summary")
             .listStyle(.plain)
+            .navigationTitle("Summary")
+            .toolbar {
+                EditButton()
+            }
         }
         .onAppear {
             games.append(CodeBreaker(name: "First Game"))
