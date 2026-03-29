@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
-typealias Peg = String
+typealias Peg = Color
 
 @Observable
 class CodeBreaker {
@@ -24,7 +25,7 @@ class CodeBreaker {
     
     init(
         name: String = "Code Breaker",
-        pegChoices: [Peg] = ["red", "green", "blue", "yellow"],
+        pegChoices: [Peg] = [.red, .green, .blue, .yellow],
         pegCount: Int = 4
     ) {
         self.name = name
@@ -63,7 +64,7 @@ class CodeBreaker {
     }
     
     func populateValues(
-        pegChoices: [Peg] = ["red", "green", "blue", "yellow"],
+        pegChoices: [Peg] = [.red, .green, .blue, .yellow],
         pegCount: Int
     ) {
         self.pegChoices = pegChoices
@@ -81,16 +82,10 @@ class CodeBreaker {
     }
     
     func restartGame() {
-        let emojies = ["🥰", "🥳", "😂", "😎", "😍"]
-        let pegCount = Int.random(in: 3...6)
-        let shouldPlayWithEmojies = Bool.random()
         resetValues()
         
-        if shouldPlayWithEmojies {
-            self.populateValues(pegChoices: emojies, pegCount: pegCount)
-        } else {
-            self.populateValues(pegCount: pegCount)
-        }
+        let pegCount = Int.random(in: 3...6)
+        self.populateValues(pegChoices: pegChoices, pegCount: pegCount)
     }
 }
 

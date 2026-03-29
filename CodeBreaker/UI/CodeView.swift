@@ -57,18 +57,3 @@ struct CodeView<AccessoryView>: View where AccessoryView: View {
     }
     
 }
-
-
-extension String {
-    var toColor: Color? {
-        switch self {
-        case "red": .red
-        case "green": .green
-        case "blue": .blue
-        case "yellow": .yellow
-        case "clear": .clear
-
-        default: nil
-        }
-    }
-}

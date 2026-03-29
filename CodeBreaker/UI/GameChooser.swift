@@ -42,8 +42,8 @@ struct GameChooser: View {
             }
         }
         .onAppear {
-            games.append(CodeBreaker(name: "First Game"))
-            games.append(CodeBreaker(name: "Second Game"))
+            games.append(CodeBreaker(name: "Earth Tones", pegChoices: [.blue, .purple, .orange]))
+            games.append(CodeBreaker(name: "Favorite Game", pegChoices: [.red, .brown, .pink, .blue, .secondary]))
             games.append(CodeBreaker(name: "Third Game"))
             selection = games.first
         }

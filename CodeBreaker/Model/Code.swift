@@ -7,6 +7,7 @@
 
 
 import Foundation
+import SwiftUI
 
 struct Code {
     var kind: Kind
@@ -14,10 +15,10 @@ struct Code {
     
     init(kind: Kind, pegCount: Int) {
         self.kind = kind
-        self.pegs = Array(repeating: "clear", count: pegCount)
+        self.pegs = Array(repeating: .clear, count: pegCount)
     }
     
-    static let missing = "clear"
+    static let missing = Color.clear
     
     enum Kind: Equatable {
         case master(isHidden: Bool)
@@ -39,7 +40,7 @@ struct Code {
     }
     
     mutating func reset() {
-        pegs = Array(repeating: "clear", count: pegs.count)
+        pegs = Array(repeating: .clear, count: pegs.count)
     }
     
     func match(against otherCode: Code) -> [Match] {

@@ -15,16 +15,6 @@ struct PegView: View {
             .contentShape(Rectangle())
             .padding(5)
             .aspectRatio(1, contentMode: .fit)
-            .foregroundStyle(peg.toColor ?? Color.clear)
-            .overlay { showTextView(for: peg) }
-    }
-    
-    @ViewBuilder
-    func showTextView(for peg: Peg) -> some View {
-        if peg.toColor == nil {
-            Text(peg)
-                .font(.system(size: 120))
-                .minimumScaleFactor(9/120)
-        }
+            .foregroundStyle(peg)
     }
 }
