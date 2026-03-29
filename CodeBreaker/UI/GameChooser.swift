@@ -16,11 +16,7 @@ struct GameChooser: View {
         NavigationSplitView {
             List(selection: $selection) {
                 ForEach(games, id: \.self) { game in
-                    NavigationLink {
-                        CodeBreakerView(game: game)
-                            .navigationTitle(game.name)
-                            .navigationBarTitleDisplayMode(.inline)
-                    } label: {
+                    NavigationLink(value: game) {
                         GameSummary(game: game)
                     }
                 }
@@ -41,8 +37,9 @@ struct GameChooser: View {
                 CodeBreakerView(game: selection)
                     .navigationTitle(selection.name)
                     .navigationBarTitleDisplayMode(.inline)
+            } else {
+                Text("Choose Game")
             }
-            Text("Choose Game")
         }
         .onAppear {
             games.append(CodeBreaker(name: "First Game"))
