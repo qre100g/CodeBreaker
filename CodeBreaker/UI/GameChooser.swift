@@ -10,13 +10,14 @@ import SwiftUI
 struct GameChooser: View {
     // MARK: Data owned by view
     @State var games: [CodeBreaker] = []
+    @State private var selection: CodeBreaker? = nil
 
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach($games, id: \.self) { $game in
+        NavigationSplitView {
+            List(selection: $selection) {
+                ForEach(games, id: \.self) { game in
                     NavigationLink {
-                        CodeBreakerView(game: $game)
+                        CodeBreakerView(game: game)
                             .navigationTitle(game.name)
                             .navigationBarTitleDisplayMode(.inline)
                     } label: {
@@ -35,11 +36,19 @@ struct GameChooser: View {
             .toolbar {
                 EditButton()
             }
+        } detail: {
+            if let selection = selection {
+                CodeBreakerView(game: selection)
+                    .navigationTitle(selection.name)
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            Text("Choose Game")
         }
         .onAppear {
             games.append(CodeBreaker(name: "First Game"))
             games.append(CodeBreaker(name: "Second Game"))
             games.append(CodeBreaker(name: "Third Game"))
+            selection = games.first
         }
     }
 }

@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct CodeBreakerView: View {
-    // MARK: Data passed
-    @Binding var game: CodeBreaker
+    // MARK: Data shared
+    let game: CodeBreaker
 
     // MARK: Data Own
     @State var selection: Int = 0
     
-    init(game: Binding<CodeBreaker>) {
-        self._game = game
+    init(game: CodeBreaker) {
+        self.game = game
     }
     
     // MARK: - Body
@@ -73,11 +73,7 @@ struct CodeBreakerView: View {
     }
     
     func restartGame() {
-        let emojies = ["🥰", "🥳", "😂", "😎", "😍"]
-        let pegCount = Int.random(in: 3...6)
-        let shouldPlayWithEmojies = Bool.random()
-        let model = shouldPlayWithEmojies ? CodeBreaker(pegChoices: emojies, pegCount: pegCount) : CodeBreaker(pegCount: pegCount)
-        game = model
+        game.restartGame()
     }
 }
 

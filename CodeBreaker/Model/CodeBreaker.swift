@@ -14,10 +14,10 @@ class CodeBreaker {
     var master: Code
     var guess: Code
     var attempts: [Code] = []
-    let pegChoices: [Peg]
+    private(set) var pegChoices: [Peg]
     let name: String
     
-    let startTime: Date = .now
+    var startTime: Date = .now
     var endTime: Date? = nil
     
     var isOver: Bool = false
@@ -60,6 +60,30 @@ class CodeBreaker {
         }
         
         guess.reset()
+    }
+    
+    func populateValues(
+        pegChoices: [Peg] = ["red", "green", "blue", "yellow"],
+        pegCount: Int
+    ) {
+        self.pegChoices = pegChoices
+        self.master = Code(kind: .master(isHidden: true), pegCount: pegCount)
+        self.guess  = Code(kind: .guess, pegCount: pegCount)
+        master.randomize(from: pegChoices)
+    }
+    
+    func restartGame() {
+        let emojies = ["🥰", "🥳", "😂", "😎", "😍"]
+        let pegCount = Int.random(in: 3...6)
+        let shouldPlayWithEmojies = Bool.random()
+        startTime = .now
+        endTime = nil
+        
+        if shouldPlayWithEmojies {
+            self.populateValues(pegChoices: emojies, pegCount: pegCount)
+        } else {
+            self.populateValues(pegCount: pegCount)
+        }
     }
 }
 
