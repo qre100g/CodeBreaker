@@ -28,13 +28,9 @@ struct GameChooser: View {
             .listStyle(.plain)
         }
         .onAppear {
-            if games.isEmpty {
-                games = [
-                    CodeBreaker(name: "First Game"),
-                    CodeBreaker(name: "Second Game"),
-                    CodeBreaker(name: "Third Game")
-                ]
-            }
+            games.append(CodeBreaker(name: "First Game"))
+            games.append(CodeBreaker(name: "Second Game"))
+            games.append(CodeBreaker(name: "Third Game"))
         }
     }
 }
