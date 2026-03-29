@@ -19,12 +19,22 @@ struct GameChooserList: View {
                 NavigationLink(value: game) {
                     GameSummary(game: game)
                 }
+                .contextMenu {
+                    Button("Delete", systemImage: "minus.circle", role: .destructive) {
+                        games.removeAll { $0 == game }
+                    }
+                }
             }
             .onDelete { offsets in
                 games.remove(atOffsets: offsets)
             }
             .onMove { offsets, offset in
                 games.move(fromOffsets: offsets, toOffset: offset)
+            }
+            .onChange(of: games) {
+                if selection != nil {
+                    self.selection = nil
+                }
             }
         }
         .listStyle(.plain)
