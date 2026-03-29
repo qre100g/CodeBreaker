@@ -72,12 +72,19 @@ class CodeBreaker {
         master.randomize(from: pegChoices)
     }
     
+    func resetValues() {
+        isOver = false
+        startTime = .now
+        endTime = nil
+        guess.reset()
+        attempts.removeAll()
+    }
+    
     func restartGame() {
         let emojies = ["🥰", "🥳", "😂", "😎", "😍"]
         let pegCount = Int.random(in: 3...6)
         let shouldPlayWithEmojies = Bool.random()
-        startTime = .now
-        endTime = nil
+        resetValues()
         
         if shouldPlayWithEmojies {
             self.populateValues(pegChoices: emojies, pegCount: pegCount)
