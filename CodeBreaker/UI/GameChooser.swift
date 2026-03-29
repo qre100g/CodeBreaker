@@ -25,6 +25,7 @@ struct GameChooser: View {
                 }
             }
             .navigationTitle("Summary")
+            .listStyle(.plain)
         }
         .onAppear {
             if games.isEmpty {
