@@ -34,10 +34,12 @@ struct GameChooserList: View {
     }
     
     func addGames() {
-        games.append(CodeBreaker(name: "Earth Tones", pegChoices: [.blue, .purple, .orange]))
-        games.append(CodeBreaker(name: "Favorite Game", pegChoices: [.red, .brown, .pink, .blue, .secondary]))
-        games.append(CodeBreaker(name: "Third Game"))
-        selection = games.first
+        if games.isEmpty {
+            games.append(CodeBreaker(name: "Earth Tones", pegChoices: [.blue, .purple, .orange]))
+            games.append(CodeBreaker(name: "Favorite Game", pegChoices: [.red, .brown, .pink, .blue, .secondary]))
+            games.append(CodeBreaker(name: "Third Game"))
+            selection = games.first
+        }
     }
 }
 
