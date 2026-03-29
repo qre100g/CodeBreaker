@@ -14,20 +14,7 @@ struct GameChooser: View {
 
     var body: some View {
         NavigationSplitView {
-            List(selection: $selection) {
-                ForEach(games, id: \.self) { game in
-                    NavigationLink(value: game) {
-                        GameSummary(game: game)
-                    }
-                }
-                .onDelete { offsets in
-                    games.remove(atOffsets: offsets)
-                }
-                .onMove { offsets, offset in
-                    games.move(fromOffsets: offsets, toOffset: offset)
-                }
-            }
-            .listStyle(.plain)
+            GameChooserList(games: $games, selection: $selection)
             .navigationTitle("Summary")
             .toolbar {
                 EditButton()
@@ -40,12 +27,6 @@ struct GameChooser: View {
             } else {
                 Text("Choose Game")
             }
-        }
-        .onAppear {
-            games.append(CodeBreaker(name: "Earth Tones", pegChoices: [.blue, .purple, .orange]))
-            games.append(CodeBreaker(name: "Favorite Game", pegChoices: [.red, .brown, .pink, .blue, .secondary]))
-            games.append(CodeBreaker(name: "Third Game"))
-            selection = games.first
         }
     }
 }
