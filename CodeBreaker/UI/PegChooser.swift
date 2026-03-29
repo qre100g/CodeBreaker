@@ -24,6 +24,7 @@ struct PegChooser: View {
                         onChoosePeg?(pegChoices[index])
                     }
             }
+            .frame(maxHeight: 90)
         }
     }
 }
