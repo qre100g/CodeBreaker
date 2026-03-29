@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CodeBreakerSummary: View {
+struct GameChooser: View {
     // MARK: Data owned by view
     @State var games: [CodeBreaker] = []
 
@@ -40,5 +40,5 @@ struct CodeBreakerSummary: View {
 
 
 #Preview {
-    CodeBreakerSummary()
+    GameChooser()
 }
